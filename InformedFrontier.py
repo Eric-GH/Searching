@@ -42,7 +42,7 @@ class FrontierPQ(Frontier):
 
     def remove(self):
         """remove the state from the end"""
-        val = heapq.heappop(self._nodes)
+        val = heapq.heappop(self.nodes)
         # return the state only
         return val[2]
 
@@ -56,7 +56,7 @@ class FrontierUCS(FrontierPQ):
     def add(self, aNode):
         """Add the new state on the end"""
         self._counter += 1
-        heapq.heappush(self._nodes, (aNode.path_cost, self._counter, aNode))
+        heapq.heappush(self.nodes, (aNode.path_cost, self._counter, aNode))
 
 class FrontierGBFS(FrontierPQ):
     """This version looks at hval for ordering"""
@@ -67,7 +67,7 @@ class FrontierGBFS(FrontierPQ):
     def add(self, aNode):
         """Add the new state on the end"""
         self._counter += 1
-        heapq.heappush(self._nodes, (aNode.state.hval, self._counter, aNode))
+        heapq.heappush(self.nodes, (aNode.state.hval, self._counter, aNode))
 
 class FrontierAStar(FrontierPQ):
     """This version looks at path-cost + hval for ordering"""
@@ -79,6 +79,6 @@ class FrontierAStar(FrontierPQ):
         """Add the new state on the end"""
         self._counter += 1
         # print(aNode.path_cost, aNode.state.hval)
-        heapq.heappush(self._nodes, (aNode.path_cost + aNode.state.hval, self._counter, aNode))
+        heapq.heappush(self.nodes, (aNode.path_cost + aNode.state.hval, self._counter, aNode))
 
 
